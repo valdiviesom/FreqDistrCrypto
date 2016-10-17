@@ -15,32 +15,43 @@ public class LetterInventory {
         counts = new int[DEFAULT_SIZE];
         size = 0;
         data = data.toLowerCase();
-        int x;
         for (int i = 0; i < data.length(); i++) {
-            x = ((int) data.charAt(i)) - 97;
-            if (x >= 0 && x < 26) {
-                counts[x]++;
-                size++;
-            }
+            int x = lowerAscii(data.charAt(i));
+            if (x != -1) counts[x]++;
         }
+        size = data.length();
     }
 
+    public static int lowerAscii(char c) {
+        int x = (int) c;
+        if (x == 32) return -1; // space
+        if (x > 64 && x < 91) { // uppercase char
+            x -= 65;
+            return x;
+        }
+        if (x > 96 && x < 123) { // lowercase char
+            x -= 97;
+            return x;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    // get count at letter
     public int get(char letter) {
-        String s = new String();
-        s = s.concat(String.valueOf(letter)).toLowerCase();
-        int x = ((int) s.charAt(0)) - 97;
-        if (x < 0 || x > 26) throw new IllegalArgumentException();
-        return counts[x];
+        int x = lowerAscii(letter);
+        if (x != -1) return counts[x];
+        throw new IllegalArgumentException();
     }
 
     public void set(char letter, int value) {
-        String s = new String();
-        s = s.concat(String.valueOf(letter)).toLowerCase();
-        int x = ((int) s.charAt(0)) - 97;
-        if (x < 0 || x > 26) throw new IllegalArgumentException();
-        size -= counts[x];
-        counts[x] = value;
-        size += counts[x];
+        int x = lowerAscii(letter);
+        if (x != -1) {
+            size -= counts[x];
+            size += value;
+            counts[x] = value;
+            return;
+        }
+        throw new IllegalArgumentException();
     }
 
     public int size() {
@@ -84,11 +95,11 @@ public class LetterInventory {
     }
 
     public double getLetterPercentage(char letter) {
-        String s = new String();
-        s = s.concat(String.valueOf(letter)).toLowerCase();
-        int x = ((int) s.charAt(0)) - 97;
-        if (x < 0 || x > 26) throw new IllegalArgumentException();
-        return ((double) get(letter) / (double) size);
+        int x = lowerAscii(letter);
+        if (x != -1) {
+            return (double) get(letter) / (double) size;
+        }
+        throw new IllegalArgumentException();
     }
 
 }

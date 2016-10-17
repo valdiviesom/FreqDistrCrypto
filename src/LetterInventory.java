@@ -18,6 +18,7 @@ public class LetterInventory {
         for (int i = 0; i < data.length(); i++) {
             int x = lowerAscii(data.charAt(i));
             if (x > -1) counts[x]++;
+            
         }
         size = data.length();
     }

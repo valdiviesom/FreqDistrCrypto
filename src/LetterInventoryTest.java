@@ -13,6 +13,12 @@ public class LetterInventoryTest {
         String data = "aaaZ";
         li=new LetterInventory(data);
     }
+    @Test
+    public void lowerAsciiTest(){
+        for (int i = 0; i < 26; i++) {
+            assertEquals(i,LetterInventory.lowerAscii((char) (i+97)));
+        }
+    }
 
     @Test
     public void initTest(){
@@ -37,6 +43,8 @@ public class LetterInventoryTest {
     @org.junit.Test
     public void testSize() throws Exception {
         assertEquals(4,li.size());
+        li.set('c',2);
+        assertEquals(6,li.size());
     }
 
     @org.junit.Test

@@ -1,7 +1,8 @@
 // Adam Blank
 // 1/7/2015
 // The frequency analysis class attempts to solve substitution ciphers 
-// using a frequency analysis. 
+// using a frequency analysis.
+// from U Washington CS course
 
 import java.util.Arrays;
 import java.util.Scanner;
